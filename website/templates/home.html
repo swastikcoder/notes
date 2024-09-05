@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{%block title%} {{user.first_name}} {%endblock title %}
+
+{% block content%}
+<h1 align="center">Welcome {{user.first_name}}</h1>
+<ul class="list-group list-group-flush" id="notes">
+  {% for note in user.notes %}
+  <li class="list-group-item">
+    {{ note.data }}<form action="/delete-note" method="POST">
+  <input type="hidden" name="noteId" value="{{ note.id }}">
+  <button type="submit" class="close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</form>
+  </li>
+  {% endfor %}
+</ul>
+
+
+<form method="POST">
+  <textarea name="note" id="note" class="form-control" placeholder = 'Hey there {{user.first_name}} hopefully you are having a nice day'></textarea>
+  <br />
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Add Note</button>
+  </div>
+</form>
+{%endblock content%}
